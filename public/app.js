@@ -8,9 +8,13 @@
 
 var sendBase64ToServer = function(base64){
     console.log('Sending the base64 Image:' + base64 + ' to the server')
-    var httpPost = new XMLHttpRequest(),
-        path = "../uploadpic"
-        data = JSON.stringify({image: base64});
+
+    var httpPost = new XMLHttpRequest();
+    var formData  = new FormData();
+
+    formData.append('file',base64)
+
+    var data = JSON.stringify({image: base64});
     httpPost.onreadystatechange = function(err) {
             if (httpPost.readyState == 4 && httpPost.status == 200){
                 console.log(httpPost.responseText);
@@ -19,9 +23,9 @@ var sendBase64ToServer = function(base64){
             }
         };
     // Set the content type of the request to json since that's what's being sent
-    httpPost.open("POST", path, true);
-    httpPost.setRequestHeader('Content-Type', 'image/jpeg');
-    httpPost.send(data);
+    httpPost.open("POST", "../uploadpic", true);
+    httpPost.setRequestHeader('Content-Type', 'multipart/form-data');
+    httpPost.send(formData);
     console.log('Image SENT to: '+ path)
 };
 
