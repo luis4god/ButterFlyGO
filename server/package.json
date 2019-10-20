@@ -1,0 +1,51 @@
+{
+  "name": "cities-from-space",
+  "description": "A server using Watson Visual Recognition to classify images of cities at night taken from the International Space Station.",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "debug": "node --inspect app.js",
+    "test-integration": "casperjs test ../test/integration/test.*.js",
+    "test-integration-runner": "NODE_ENV=test node casper-runner.js",
+    "test": "npm run test-integration-runner",
+    "test-unit": "istanbul cover ./node_modules/mocha/bin/_mocha test/unit",
+    "lint": "eslint .",
+    "autofix": "eslint --fix .",
+    "codecov": "npm run test && (codecov || true)"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM/cities-from-space"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cfenv": "^1.1.0",
+    "dotenv": "^6.2.0",
+    "download": "^7.1.0",
+    "express": "^4.16.4",
+    "formidable": "^1.2.1",
+    "vcap_services": "^0.6.0",
+    "watson-developer-cloud": "3.15.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "casperjs": "^1.1.4",
+    "codecov": "^3.1.0",
+    "eslint": "^5.14.0",
+    "eslint-config-google": "^0.11.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "phantomjs-prebuilt": "^2.1.16",
+    "prettier": "^1.15.3",
+    "supertest": "^3.3.0"
+  },
+  "engines": {
+    "node": ">= 6.9.x",
+    "npm": "> 3.10.x"
+  }
+}
