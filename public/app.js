@@ -6,15 +6,44 @@
 // Here we define the function that will send the request to the server. 
 // It will accept the image name, and the base64 data as arguments
 
+var sendToWatson = function (base64){
+    var imageData = {
+
+        "mimeType" : "image/webp",
+      
+        "src" : base64
+      
+      }
+
+      var http = new XMLHttpRequest();
+      
+      http.onreadystatechange = function(err) {
+        if (http.readyState == 4 && http.status == 200){
+            console.log(http.responseText);
+        } else {
+            console.log(err);
+        }
+    };
+
+    http.open("POST", "../catch", true);
+    http.setRequestHeader("content-Type", "application/x-www-form-urlencoded")
+    
+    http.send("butterfly=" + base64);
+    console.log('Image SENT to ../catch')
+
+
+}
+
 var sendBase64ToServer = function(base64){
     console.log('Sending the base64 Image:' + base64 + ' to the server')
 
     var httpPost = new XMLHttpRequest();
     var formData  = new FormData();
 
-    formData.append('file',base64)
+    var data = JSON.stringify({'file': base64});
 
-    var data = JSON.stringify({image: base64});
+    formData.append('file',data)
+
     httpPost.onreadystatechange = function(err) {
             if (httpPost.readyState == 4 && httpPost.status == 200){
                 console.log(httpPost.responseText);
@@ -24,7 +53,6 @@ var sendBase64ToServer = function(base64){
         };
     // Set the content type of the request to json since that's what's being sent
     httpPost.open("POST", "../uploadpic", true);
-    httpPost.setRequestHeader('Content-Type', 'multipart/form-data');
     httpPost.send(formData);
     console.log('Image SENT to: '+ path)
 };
@@ -65,7 +93,8 @@ cameraTrigger.onclick = function() {
     cameraOutput.src = cameraSensor.toDataURL("image/webp");
     cameraOutput.classList.add("taken");
     console.log('Is going to SEND the image the server')
-    sendBase64ToServer(cameraOutput.src);
+    //sendBase64ToServer(cameraOutput.src);
+    sendToWatson(cameraOutput.src);
 };
 
 

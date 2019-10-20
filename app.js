@@ -118,6 +118,13 @@ application.post("/uploadpic", function (req, result) {
         }
     });
 });
+
+application.post("/catch",function(req, result){
+console.log('REQUEST: ' + req)
+
+
+})
+
 const port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 
 application.listen(port, function () {
